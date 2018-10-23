@@ -7,7 +7,6 @@ public class GameEngine
     public void start()
     {
         gameMap.generate();
-
     }
 
     public string playGame()
