@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
+using UnityEngine;
 
-namespace Task1
-{
-    public partial class Map
+
+public partial class Map
     {
-        Random rand = new Random();
+        System.Random rand = new System.Random();
 
         int numUnits = 5; //number of units to be placed
         int numBuildings = 3; //number of resource buildings
@@ -438,4 +438,4 @@ namespace Task1
             }
         }
     }
-}
+

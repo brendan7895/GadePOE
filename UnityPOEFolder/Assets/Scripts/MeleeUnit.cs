@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using UnityEngine;
 
-namespace Task1
-{
+
     public class MeleeUnit : Unit
     {
         public MeleeUnit(int xPos, int yPos, int HP, int maxHP, int speed, int attack, int atkRange, string team, string symbol, string name) : base(xPos, yPos, HP, maxHP, speed, attack, atkRange, team, symbol, name)
@@ -62,4 +62,4 @@ namespace Task1
             file.Close();
         }
     }
-}
+

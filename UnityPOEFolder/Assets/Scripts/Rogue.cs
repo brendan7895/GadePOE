@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-namespace Task1
-{
+using UnityEngine;
+
     public class Rogue : Unit
     {
         public Rogue(int xPos, int yPos, int HP, int maxHP, int speed, int attack, int atkRange, string team, string symbol, string name) : base(xPos, yPos, HP, maxHP, speed, attack, atkRange, team, symbol, name)
@@ -61,4 +61,4 @@ namespace Task1
             file.Close();
         }
     }
-}
+

@@ -1,7 +1,7 @@
 ﻿using System.IO;
+using UnityEngine;
 
-namespace Task1
-{
+
     public class FactoryBuilding : Building
     {
         System.Random rand = new System.Random();
@@ -10,9 +10,20 @@ namespace Task1
         private int unitTick;
         private int spawnPoint;
 
-        public int UnitTick { get => unitTick; set => unitTick = value; }
+    public int UnitTick
+    {
+        get
+        {
+            return unitTick;
+        }
 
-        public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int unitTick, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
+        set
+        {
+            unitTick = value;
+        }
+    }
+
+    public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int unitTick, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
         {
             this.numberOfUnits = numberOfUnits;
             this.unitTick = unitTick;
@@ -33,7 +44,7 @@ namespace Task1
 
         public override string ToString()
         {
-            return type + "," + symbol + "," + xPos + "," + yPos + "," + health;
+            return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
         }
 
         public Unit SpawnUnit(int counter)
@@ -94,4 +105,4 @@ namespace Task1
             build.Close();
         }
     }
-}
+
