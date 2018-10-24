@@ -4,7 +4,6 @@ using UnityEngine;
 public class ResourceBuilding : Building
 {
     protected string type;
-    protected int resourcesTick; //enter tick value in seconds
     protected int total;
 
     public int Total
@@ -20,10 +19,9 @@ public class ResourceBuilding : Building
         }
     }
 
-    public ResourceBuilding(int xPos, int yPos, int health, string team, string symbol, int resourcesTick, int total, string type) : base(xPos, yPos, health, team, symbol, type)
+    public ResourceBuilding(int xPos, int yPos, int health, string team, string symbol, int total, string type) : base(xPos, yPos, health, team, symbol, type)
     {
         this.type = type;
-        this.resourcesTick = resourcesTick;
         this.Total = total;
     }
 
@@ -44,17 +42,14 @@ public class ResourceBuilding : Building
         return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
     }
 
-    public bool Resources(int counter)
+    public bool Resources()
     {
         bool value = false;
-        if (counter % resourcesTick == 0)
+        Total--;
+        value = true;
+        if (Total <= 0)
         {
-            Total--;
-            value = true;
-            if (Total <= 0)
-            {
-                value = false;
-            }
+            value = false;
         }
         return value;
     }

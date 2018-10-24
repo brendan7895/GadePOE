@@ -21,16 +21,6 @@ public class GameEngine
         gameMap.Redraw();
     }
 
-    public string UnitsString(int i)
-    {
-        return gameMap.UnitsCombo(i);
-    }
-
-    public string BuildInfo(int i)
-    {
-        return gameMap.BuildingCombo(i);
-    }
-
     public int numUnit()
     {
         return gameMap.numUnit();
@@ -41,14 +31,14 @@ public class GameEngine
         return gameMap.numBuild();
     }
 
-    public void PlaceNewUnit(int counter)
+    public void PlaceNewUnit()
     {
-        gameMap.placeNewUnit(counter);
+        gameMap.placeNewUnit();
     }
 
-    public void PlaceResource(int counter)
+    public void PlaceResource()
     {
-        gameMap.PlaceNewResource(counter);
+        gameMap.PlaceNewResource();
     }
 
     public void SaveAll()

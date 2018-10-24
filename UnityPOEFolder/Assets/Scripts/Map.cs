@@ -77,22 +77,22 @@ public partial class Map : MonoBehaviour
             {
                 if (buildingType == 0)
                 {
-                    buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
+                    buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 5, "Resource");
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 1, "Factory");
                 }
             }
             if (teamRand == 1)
             {
                 if (buildingType == 0)
                 {
-                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
+                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 5, "Resource");//🏙️🏠
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 1, "Factory");
                 }
             }
 
@@ -169,41 +169,26 @@ public partial class Map : MonoBehaviour
                         case 0:
                             {
                                 units[i].updatePos("d");
-                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                //mapArr[units[i].XPos - 1, units[i].YPos] = ".";
-
                             }
                             break;
                         case 1:
                             {
                                 units[i].updatePos("a");
-                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                //mapArr[units[i].XPos + 1, units[i].YPos] = ".";
-
                             }
                             break;
                         case 2:
                             {
                                 units[i].updatePos("s");
-                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                //mapArr[units[i].XPos, units[i].YPos - 1] = ".";
                             }
                             break;
                         case 3:
                             {
                                 units[i].updatePos("w");
-                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                //mapArr[units[i].XPos, units[i].YPos + 1] = ".";
                             }
                             break;
                     }
 
                 }
-            }
-
-            if (units[i].isDead() == true)
-            {
-                mapArr[units[i].XPos, units[i].YPos] = ".";
             }
         }
 
@@ -242,19 +227,6 @@ public partial class Map : MonoBehaviour
         return sym;
     }
 
-    //public string Redraw()
-    //{
-    //    string value = "";
-    //    for (int i = 0; i < 20; i++)
-    //    {
-    //        for (int j = 0; j < 20; j++)
-    //        {
-    //            value += mapArr[j, i];
-    //        }
-    //        value += "\n";
-    //    }
-    //    return value;
-    //}
     public void Redraw()
     {
         DestroyAll();
@@ -292,26 +264,14 @@ public partial class Map : MonoBehaviour
         {
             Destroy(unit);
         }
-
-        // CheckDeath();
-    }
-
-    public string UnitsCombo(int i) //returns the units to string for the  combo box
-    {
-        return units[i].ToString();
-    }
-
-    public string BuildingCombo(int i)
-    {
-        return buildings[i].ToString();
     }
 
     int arraySize;
 
-    public void placeNewUnit(int counter) //places new unit
+    public void placeNewUnit() //places new unit
     {
-        arraySize = units.Length + 1;
-        for (int i = 0; i < numBuildings - 1; i++)
+        arraySize = units.Length;
+        for (int i = 0; i < numBuildings; i++) //numbuild -1?
         {
             string buildingType = buildings[i].GetType().ToString();
             string[] splitBuilding = buildingType.Split('.');
@@ -321,19 +281,26 @@ public partial class Map : MonoBehaviour
             {
                 FactoryBuilding temp = (FactoryBuilding)buildings[i];
 
-                if (counter % temp.UnitTick == 0)
-                {
-                    Array.Resize(ref units, arraySize);
-                    units[arraySize - 1] = temp.SpawnUnit(counter);
+                //if (counter % temp.UnitTick == 0)
+                //{
+                //    Array.Resize(ref units, arraySize);
+                //    units[arraySize - 1] = temp.SpawnUnit();
 
-                    mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
+                //    units[i] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                //    //mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
+                //    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos+1 * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                //}
+                Array.Resize(ref units, arraySize);
+                units[arraySize-1] = temp.SpawnUnit();
 
-                }
+                units[i] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                //mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
+                Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos + 1 * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
         }
     }
 
-    public void PlaceNewResource(int counter) //places the resource on the map
+    public void PlaceNewResource() //places the resource on the map
     {
         for (int i = 0; i < numBuildings - 1; i++)
         {
@@ -344,17 +311,14 @@ public partial class Map : MonoBehaviour
             if (buildingType == "ResourceBuilding")
             {
                 ResourceBuilding temp = (ResourceBuilding)buildings[i];
-                temp.Resources(counter);
+                temp.Resources();
 
-                if (temp.Resources(counter - 1) == true)
+                if (temp.Resources() == true)
                 {
                     int x = rand.Next(0, 20);
                     int y = rand.Next(0, 20);
 
-                    if (mapArr[x, y] == ".")
-                    {
-                        mapArr[x, y] = "x";
-                    }
+                    Instantiate(Resources.Load("Coin"), new Vector3(X_OFF + (x + 1 * PADDING) + 1, Y_OFF + (-y * PADDING), -1), Quaternion.identity);
                 }
             }
         }
@@ -444,11 +408,11 @@ public partial class Map : MonoBehaviour
 
             if (bType == "Resource") //type + ", " + symbol + "," + XPos + "," + YPos + "," + health;
             {
-                buildings[i] = new ResourceBuilding(bX, bY, bHp, bSymbol, "R", 3, 5, bType);
+                buildings[i] = new ResourceBuilding(bX, bY, bHp, bSymbol, "R", 5, bType);
             }
             if (bType == "Factory")
             {
-                buildings[i] = new FactoryBuilding(bX, bY, bHp, bSymbol, "F", 5, 5, 1, bType);
+                buildings[i] = new FactoryBuilding(bX, bY, bHp, bSymbol, "F", 5, 1, bType);
             }
 
             mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;

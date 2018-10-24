@@ -19,10 +19,8 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         ge = new GameEngine();
-        //X_OFF = -Camera.main.orthographicSize;
-        //Y_OFF = Camera.main.orthographicSize;
+
         ge.start();
-        //FillGrass();
     }
 
     // Update is called once per frame
@@ -32,19 +30,12 @@ public class GameManager : MonoBehaviour {
         {
             ge.playGame();
         }
-        count++;
-        
-    }
 
-    //void FillGrass()
-    //{
-    //    for (int y = 0; y < 20; y++)
-    //    {
-    //        for (int x = 0; x < 20; x++)
-    //        {
-    //            Debug.Log("Cehck");
-    //            Instantiate(Resources.Load("Grass"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
-    //        }
-    //    }
-    //}
+        if (count % 5 == 0)
+        {
+            ge.PlaceNewUnit();
+            //ge.PlaceResource();
+        }
+        count++;        
+    }
 }

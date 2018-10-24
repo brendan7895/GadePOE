@@ -7,26 +7,11 @@ using UnityEngine;
         System.Random rand = new System.Random();
 
         private int numberOfUnits;
-        private int unitTick;
         private int spawnPoint;
 
-    public int UnitTick
-    {
-        get
-        {
-            return unitTick;
-        }
-
-        set
-        {
-            unitTick = value;
-        }
-    }
-
-    public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int unitTick, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
+    public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
         {
             this.numberOfUnits = numberOfUnits;
-            this.unitTick = unitTick;
             this.spawnPoint = spawnPoint;
         }
 
@@ -47,34 +32,61 @@ using UnityEngine;
             return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
         }
 
-        public Unit SpawnUnit(int counter)
+    //public Unit SpawnUnit(int counter)
+    //{
+    //    Unit temp = null;
+
+    //    if(counter % unitTick == 0 && numberOfUnits > 0)
+    //    {
+    //        int choice = rand.Next(0, 2);
+
+    //        switch(choice)
+    //        {
+    //            case 0:
+    //                {
+    //                    temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+    //                }
+    //                break;
+    //            case 1:
+    //                {
+    //                    temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
+    //                }
+    //                break;
+    //        }
+    //        numberOfUnits--;
+    //    }
+
+    //    return temp;
+    //}
+
+    public Unit SpawnUnit()
+    {
+        Unit temp = null;
+
+        if (numberOfUnits > 0)
         {
-            Unit temp = null;
+            int choice = rand.Next(0, 2);
 
-            if(counter % unitTick == 0 && numberOfUnits > 0)
+            switch (choice)
             {
-                int choice = rand.Next(0, 2);
-
-                switch(choice)
-                {
-                    case 0:
-                        {
-                            temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-                        }
-                        break;
-                    case 1:
-                        {
-                            temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-                        }
-                        break;
-                }
-                numberOfUnits--;
+                case 0:
+                    {
+                        temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                    }
+                    break;
+                case 1:
+                    {
+                        temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
+                    }
+                    break;
             }
-
-            return temp;
+            numberOfUnits--;
         }
 
-        public string Teams()
+        return temp;
+    }
+
+    public string Teams()
         {
             int i = rand.Next(0, 2);
             string sym = "";
