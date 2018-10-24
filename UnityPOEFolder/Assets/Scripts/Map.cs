@@ -3,9 +3,15 @@ using System.IO;
 using UnityEngine;
 
 
-public partial class Map
-    {
-        System.Random rand = new System.Random();
+public partial class Map : MonoBehaviour
+{
+    const float PADDING = 5.12f;
+
+    private const int REFRESH_RATE = 60;
+    private int count = 0;
+    float X_OFF, Y_OFF;
+
+    System.Random rand = new System.Random();
 
         int numUnits = 5; //number of units to be placed
         int numBuildings = 3; //number of resource buildings
@@ -16,87 +22,102 @@ public partial class Map
         Building[] buildings;
 
         public void generate()
+    {
+        X_OFF = -Camera.main.orthographicSize;
+        Y_OFF = Camera.main.orthographicSize;
+
+        for (int y = 0; y < 20; y++)
         {
-            for (int i = 0; i < 20; i++) //populates the map array
+            for (int x = 0; x < 20; x++)
             {
-                for (int j = 0; j < 20; j++)
-                {
-                    mapArr[j, i] = ".";
-                }
+                Debug.Log("Cehck");
+                Instantiate(Resources.Load("Grass"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
             }
-
-            units = new Unit[numUnits];
-            buildings = new Building[numBuildings];
-
-            for (int i = 0; i < numUnits; i++) //creates and places the units in the map
-            {
-                int x = rand.Next(0, 20);
-                int y = rand.Next(0, 20);
-
-                int teamRand = rand.Next(0, 4);
-
-                if (teamRand == 0)
-                {
-                    units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-                }
-                if (teamRand == 1)
-                {
-                    units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-                }
-                if(teamRand == 2)
-                {
-                    units[i] = new Rogue(x, y, 100, 100, 1, 15, 5, Teams(), "V", "Rogue");
-                }
-                if(teamRand == 3)
-                {
-                    units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
-                }
-                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-            }
-
-            for (int i = 0; i < buildings.Length; i++)
-            {
-                int x = rand.Next(0, 20);
-                int y = rand.Next(0, 20);
-
-                if (mapArr[x, y] == ".")
-                {
-                    x = rand.Next(0, 20);
-                    y = rand.Next(0, 20);
-                }
-                int teamRand = rand.Next(0, 2);
-                int buildingType = rand.Next(0, 2);
-
-                if (teamRand == 0)
-                {
-                    if (buildingType == 0)
-                    {
-                        buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
-                    }
-                    else
-                    {
-                        buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
-                    }
-                }
-                if (teamRand == 1)
-                {
-                    if (buildingType == 0)
-                    {
-                        buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
-                    }
-                    else
-                    {
-                        buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
-                    }
-                }
-
-                mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
-
-            }
-
         }
+    }
 
-        public void moveUnit()
+    //public void generate()
+    //{
+    //    for (int i = 0; i < 20; i++) //populates the map array
+    //    {
+    //        for (int j = 0; j < 20; j++)
+    //        {
+    //            mapArr[j, i] = ".";
+    //        }
+    //    }
+
+    //    units = new Unit[numUnits];
+    //    buildings = new Building[numBuildings];
+
+    //    for (int i = 0; i < numUnits; i++) //creates and places the units in the map
+    //    {
+    //        int x = rand.Next(0, 20);
+    //        int y = rand.Next(0, 20);
+
+    //        int teamRand = rand.Next(0, 4);
+
+    //        if (teamRand == 0)
+    //        {
+    //            units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+    //        }
+    //        if (teamRand == 1)
+    //        {
+    //            units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
+    //        }
+    //        if(teamRand == 2)
+    //        {
+    //            units[i] = new Rogue(x, y, 100, 100, 1, 15, 5, Teams(), "V", "Rogue");
+    //        }
+    //        if(teamRand == 3)
+    //        {
+    //            units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
+    //        }
+    //        mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+    //    }
+
+    //    for (int i = 0; i < buildings.Length; i++)
+    //    {
+    //        int x = rand.Next(0, 20);
+    //        int y = rand.Next(0, 20);
+
+    //        if (mapArr[x, y] == ".")
+    //        {
+    //            x = rand.Next(0, 20);
+    //            y = rand.Next(0, 20);
+    //        }
+    //        int teamRand = rand.Next(0, 2);
+    //        int buildingType = rand.Next(0, 2);
+
+    //        if (teamRand == 0)
+    //        {
+    //            if (buildingType == 0)
+    //            {
+    //                buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
+    //            }
+    //            else
+    //            {
+    //                buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
+    //            }
+    //        }
+    //        if (teamRand == 1)
+    //        {
+    //            if (buildingType == 0)
+    //            {
+    //                buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
+    //            }
+    //            else
+    //            {
+    //                buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
+    //            }
+    //        }
+
+    //        mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
+
+    //    }
+
+    //}
+
+    public void moveUnit()
         {
             int numArr = units.Length;
 
