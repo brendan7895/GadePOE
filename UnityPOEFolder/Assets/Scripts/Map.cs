@@ -66,47 +66,46 @@ public partial class Map : MonoBehaviour
             //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
         }
 
-        //    for (int i = 0; i < buildings.Length; i++)
-        //    {
-        //        int x = rand.Next(0, 20);
-        //        int y = rand.Next(0, 20);
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            int x = rand.Next(0, 20);
+            int y = rand.Next(0, 20);
+          
+            int teamRand = rand.Next(0, 2);
+            int buildingType = rand.Next(0, 2);
 
-        //        if (mapArr[x, y] == ".")
-        //        {
-        //            x = rand.Next(0, 20);
-        //            y = rand.Next(0, 20);
-        //        }
-        //        int teamRand = rand.Next(0, 2);
-        //        int buildingType = rand.Next(0, 2);
+            if (teamRand == 0)
+            {
+                if (buildingType == 0)
+                {
+                    buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
+                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                }
+                else
+                {
+                    buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
+                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                }
+            }
+            if (teamRand == 1)
+            {
+                if (buildingType == 0)
+                {
+                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
+                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                }
+                else
+                {
+                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
+                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                }
+            }
 
-        //        if (teamRand == 0)
-        //        {
-        //            if (buildingType == 0)
-        //            {
-        //                buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
-        //            }
-        //            else
-        //            {
-        //                buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
-        //            }
-        //        }
-        //        if (teamRand == 1)
-        //        {
-        //            if (buildingType == 0)
-        //            {
-        //                buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
-        //            }
-        //            else
-        //            {
-        //                buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
-        //            }
-        //        }
+            //        mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
 
-        //        mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
+                }
 
-        //    }
-
-    }
+        }
 
     public void moveUnit()
     {
