@@ -48,6 +48,19 @@ public abstract class Building
         }
     }
 
+    public string Type
+    {
+        get
+        {
+            return type;
+        }
+
+        set
+        {
+            type = value;
+        }
+    }
+
     public Building(int xPos, int yPos, int health, string team, string symbol, string type)
     {
         this.XPos = xPos;

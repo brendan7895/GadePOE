@@ -13,7 +13,7 @@ public partial class Map : MonoBehaviour
     System.Random rand = new System.Random();
 
     int numUnits = 10; //number of units to be placed
-    int numBuildings = 3; //number of resource buildings
+    int numBuildings = 5; //number of resource buildings
 
     string[,] mapArr = new string[20, 20]; //map array
 
@@ -29,7 +29,7 @@ public partial class Map : MonoBehaviour
         {
             for (int x = 0; x < 20; x++)
             {
-                Instantiate(Resources.Load("Grass"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                Instantiate(Resources.Load("Grass"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING), 1), Quaternion.identity);
             }
         }
 
@@ -46,31 +46,30 @@ public partial class Map : MonoBehaviour
             if (teamRand == 0)
             {
                 units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-                Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
             if (teamRand == 1)
             {
                 units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-                Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
             if (teamRand == 2)
             {
                 units[i] = new Rogue(x, y, 100, 100, 1, 15, 5, Teams(), "V", "Rogue");
-                Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
             if (teamRand == 3)
             {
                 units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
-                Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
+                Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
-            //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
         }
 
         for (int i = 0; i < buildings.Length; i++)
         {
             int x = rand.Next(0, 20);
             int y = rand.Next(0, 20);
-          
+
             int teamRand = rand.Next(0, 2);
             int buildingType = rand.Next(0, 2);
 
@@ -79,12 +78,10 @@ public partial class Map : MonoBehaviour
                 if (buildingType == 0)
                 {
                     buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
-                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
                 }
                 else
                 {
                     buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
-                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
                 }
             }
             if (teamRand == 1)
@@ -92,20 +89,27 @@ public partial class Map : MonoBehaviour
                 if (buildingType == 0)
                 {
                     buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
-                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
                 }
                 else
                 {
                     buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
-                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (x * PADDING), Y_OFF + (-y * PADDING)), Quaternion.identity);
                 }
             }
 
-            //        mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
-
-                }
-
+            
         }
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            if(buildings[i].Type == "Resource")
+            {
+                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+            }
+        }
+    }
 
     public void moveUnit()
     {
