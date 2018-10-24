@@ -6,7 +6,7 @@ using UnityEngine;
 public partial class Map : MonoBehaviour
 {
     const float PADDING = 5.12f;
-    private const int REFRESH_RATE = 60;
+    
     private int count = 0;
     float X_OFF, Y_OFF;
 
@@ -123,29 +123,29 @@ public partial class Map : MonoBehaviour
                 if (units[i].XPos <= temp.XPos)
                 {
                     units[i].updatePos("d");
-                    mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    mapArr[units[i].XPos - 1, units[i].YPos] = ".";
+                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                    //mapArr[units[i].XPos - 1, units[i].YPos] = ".";
                 }
 
                 if (units[i].XPos >= temp.XPos)
                 {
                     units[i].updatePos("a");
-                    mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    mapArr[units[i].XPos + 1, units[i].YPos] = ".";
+                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                    //mapArr[units[i].XPos + 1, units[i].YPos] = ".";
                 }
 
                 if (units[i].YPos <= temp.YPos)
                 {
                     units[i].updatePos("s");
-                    mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    mapArr[units[i].XPos, units[i].YPos - 1] = ".";
+                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                    //mapArr[units[i].XPos, units[i].YPos - 1] = ".";
                 }
 
                 if (units[i].YPos >= temp.YPos)
                 {
                     units[i].updatePos("w");
-                    mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    mapArr[units[i].XPos, units[i].YPos + 1] = ".";
+                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                    //mapArr[units[i].XPos, units[i].YPos + 1] = ".";
                 }
             }
 
@@ -169,31 +169,31 @@ public partial class Map : MonoBehaviour
                         case 0:
                             {
                                 units[i].updatePos("d");
-                                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                mapArr[units[i].XPos - 1, units[i].YPos] = ".";
+                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                                //mapArr[units[i].XPos - 1, units[i].YPos] = ".";
 
                             }
                             break;
                         case 1:
                             {
                                 units[i].updatePos("a");
-                                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                mapArr[units[i].XPos + 1, units[i].YPos] = ".";
+                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                                //mapArr[units[i].XPos + 1, units[i].YPos] = ".";
 
                             }
                             break;
                         case 2:
                             {
                                 units[i].updatePos("s");
-                                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                mapArr[units[i].XPos, units[i].YPos - 1] = ".";
+                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                                //mapArr[units[i].XPos, units[i].YPos - 1] = ".";
                             }
                             break;
                         case 3:
                             {
                                 units[i].updatePos("w");
-                                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                                mapArr[units[i].XPos, units[i].YPos + 1] = ".";
+                                //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+                                //mapArr[units[i].XPos, units[i].YPos + 1] = ".";
                             }
                             break;
                     }
@@ -242,18 +242,58 @@ public partial class Map : MonoBehaviour
         return sym;
     }
 
-    public string Redraw()
+    //public string Redraw()
+    //{
+    //    string value = "";
+    //    for (int i = 0; i < 20; i++)
+    //    {
+    //        for (int j = 0; j < 20; j++)
+    //        {
+    //            value += mapArr[j, i];
+    //        }
+    //        value += "\n";
+    //    }
+    //    return value;
+    //}
+    public void Redraw()
     {
-        string value = "";
-        for (int i = 0; i < 20; i++)
+        DestroyAll();
+        for (int i = 0; i < units.Length; i++)
         {
-            for (int j = 0; j < 20; j++)
+            if(units[i].isDead() != true)
             {
-                value += mapArr[j, i];
+                if (units[i].Name == "Melee")
+                {
+                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
+                if (units[i].Name == "Ranged")
+                {
+                    Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
+                if (units[i].Name == "Rogue")
+                {
+                    Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
+                if (units[i].Name == "Dragon")
+                {
+                    Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
             }
-            value += "\n";
+            
         }
-        return value;
+
+    }
+
+    void DestroyAll()
+    {
+        GameObject[] killAllUnits = GameObject.FindGameObjectsWithTag("Redraw");
+
+        foreach (GameObject unit in killAllUnits)
+        {
+            Destroy(unit);
+        }
+
+        // CheckDeath();
     }
 
     public string UnitsCombo(int i) //returns the units to string for the  combo box

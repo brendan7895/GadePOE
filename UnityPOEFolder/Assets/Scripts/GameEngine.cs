@@ -9,11 +9,11 @@ public class GameEngine
         gameMap.generate();
     }
 
-    public string playGame()
+    public void playGame()
     {
         gameMap.moveUnit();
         gameMap.close();
-        return gameMap.Redraw();
+        gameMap.Redraw();
     }
 
     public void redraw()
