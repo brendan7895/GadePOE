@@ -26,16 +26,19 @@ public class GameManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (count % 5 == 0)
+        {
+            
+            //ge.PlaceResource();
+        }
+        ge.PlaceNewUnit();
+
         if (count % REFRESH_RATE == 0)
         {
             ge.playGame();
         }
 
-        if (count % 5 == 0)
-        {
-            ge.PlaceNewUnit();
-            //ge.PlaceResource();
-        }
+        
         count++;        
     }
 }

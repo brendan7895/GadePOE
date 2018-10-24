@@ -63,7 +63,7 @@ using UnityEngine;
     {
         Unit temp = null;
 
-        if (numberOfUnits > 0)
+        if (numberOfUnits >= 0)
         {
             int choice = rand.Next(0, 2);
 

@@ -19,17 +19,7 @@ public class GameEngine
     public void redraw()
     {
         gameMap.Redraw();
-    }
-
-    public int numUnit()
-    {
-        return gameMap.numUnit();
-    }
-
-    public int numBuilding()
-    {
-        return gameMap.numBuild();
-    }
+    }  
 
     public void PlaceNewUnit()
     {
