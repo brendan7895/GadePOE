@@ -243,8 +243,8 @@ public partial class Map : MonoBehaviour
                 {
                     Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
+                Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING)+1, Y_OFF + (-units[i].YPos * PADDING)+1, -1), Quaternion.identity);
             }
-            Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
 
         }
 
