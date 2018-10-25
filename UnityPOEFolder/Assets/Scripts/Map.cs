@@ -51,17 +51,17 @@ public partial class Map : MonoBehaviour
             if (teamRand == 1)
             {
                 units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-                Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
             if (teamRand == 2)
             {
                 units[i] = new Rogue(x, y, 100, 100, 1, 15, 5, Teams(), "V", "Rogue");
-                Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
             if (teamRand == 3)
             {
                 units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
-                Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
         }
 
@@ -102,11 +102,11 @@ public partial class Map : MonoBehaviour
         {
             if(buildings[i].Type == "Resource")
             {
-                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
             else
             {
-                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
         }
     }
@@ -229,22 +229,23 @@ public partial class Map : MonoBehaviour
             {
                 if (units[i].Name == "Melee")
                 {
-                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 if (units[i].Name == "Ranged")
                 {
-                    Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                    Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 if (units[i].Name == "Rogue")
                 {
-                    Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 if (units[i].Name == "Dragon")
                 {
-                    Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
-            
+            Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+
         }
 
     }

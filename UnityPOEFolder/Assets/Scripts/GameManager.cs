@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
     {
         if (count % 5 == 1)
         {
-            ge.PlaceNewUnit();
+            //ge.PlaceNewUnit();
             //ge.PlaceResource();
         }
         
