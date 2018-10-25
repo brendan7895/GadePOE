@@ -118,34 +118,27 @@ public partial class Map : MonoBehaviour
         for (int i = 0; i < units.Length; i++)
         {
             Unit temp = units[i].closestUnit(units);
+
             if (units[i].inRange(temp.XPos, temp.YPos) == false)
             {
                 if (units[i].XPos <= temp.XPos)
                 {
                     units[i].updatePos("d");
-                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    //mapArr[units[i].XPos - 1, units[i].YPos] = ".";
                 }
 
                 if (units[i].XPos >= temp.XPos)
                 {
                     units[i].updatePos("a");
-                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    //mapArr[units[i].XPos + 1, units[i].YPos] = ".";
                 }
 
                 if (units[i].YPos <= temp.YPos)
                 {
                     units[i].updatePos("s");
-                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    //mapArr[units[i].XPos, units[i].YPos - 1] = ".";
                 }
 
                 if (units[i].YPos >= temp.YPos)
                 {
                     units[i].updatePos("w");
-                    //mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
-                    //mapArr[units[i].XPos, units[i].YPos + 1] = ".";
                 }
             }
 
@@ -266,12 +259,12 @@ public partial class Map : MonoBehaviour
         }
     }
 
-    int arraySize = 10;
+    int arraySize;
 
     public void placeNewUnit() //places new unit
     {
-        arraySize += 1;
-        for (int i = 0; i < numBuildings; i++) //numbuild -1?
+        arraySize = units.Length+1;
+        for (int i = 0; i < numBuildings-1; i++) //numbuild -1?
         {
             string buildingType = buildings[i].GetType().ToString();
             string[] splitBuilding = buildingType.Split('.');
@@ -282,7 +275,7 @@ public partial class Map : MonoBehaviour
                 FactoryBuilding temp = (FactoryBuilding)buildings[i];
 
                 Array.Resize(ref units, arraySize);
-                units[i] = temp.SpawnUnit(); //arraySize - 1
+                units[arraySize-1] = temp.SpawnUnit(); //arraySize - 1
 
                 //units[i] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
                 //mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;

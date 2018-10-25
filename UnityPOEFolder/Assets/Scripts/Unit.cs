@@ -146,6 +146,7 @@ public abstract class Unit
         int closest = 0;
         int x = xPos;
         int y = yPos;
+        int abs = x + y;
         for (int i = 0; i < unit.Length; i++)
         {
             if (unit[i].team != team)
@@ -153,9 +154,9 @@ public abstract class Unit
                 x = Math.Abs(this.XPos - unit[i].XPos);
                 y = Math.Abs(this.YPos - unit[i].YPos);
 
-                if (closest < (x + y))
+                if (closest < abs)
                 {
-                    closest = x + y;
+                    closest = abs;
                     temp = unit[i];
                 }
             }
