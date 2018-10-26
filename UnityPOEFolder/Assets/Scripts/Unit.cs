@@ -92,6 +92,19 @@ public abstract class Unit
         }
     }
 
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+
+        set
+        {
+            maxHP = value;
+        }
+    }
+
     public Unit(int xPos, int yPos, int maxHP, int HP, int speed, int attack, int atkRange, string team, string symbol, string name)
     {
         this.xPos = xPos;
@@ -162,6 +175,15 @@ public abstract class Unit
             }
         }
         return temp;
+    }
+
+    public string DetermineHP(int hp, int maxHP)
+    {
+        string returnVal = "HP";
+        double result = ((double)hp / (double)maxHP) * 20;
+        int num = Mathf.CeilToInt((float)result);
+        returnVal += num;
+        return returnVal;
     }
 
 }

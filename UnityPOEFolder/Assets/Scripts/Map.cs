@@ -63,7 +63,13 @@ public partial class Map : MonoBehaviour
                 units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
                 Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
+           // Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
+
         }
+        //for (int i = 0; i < numUnits; i++) 
+        //{
+        //    Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
+        //}
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -109,6 +115,8 @@ public partial class Map : MonoBehaviour
                 Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
         }
+
+
     }
 
     public void moveUnit()
@@ -243,7 +251,7 @@ public partial class Map : MonoBehaviour
                 {
                     Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
-                Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING)+1, Y_OFF + (-units[i].YPos * PADDING)+1, -1), Quaternion.identity);
+                Instantiate(Resources.Load(units[i].DetermineHP(units[i].HP, units[i].MaxHP)), new Vector3(X_OFF + (units[i].XPos * PADDING)+1, Y_OFF + (-units[i].YPos * PADDING)+1, -1), Quaternion.identity);
             }
 
         }
