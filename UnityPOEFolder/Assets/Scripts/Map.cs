@@ -43,25 +43,53 @@ public partial class Map : MonoBehaviour
 
             int teamRand = rand.Next(0, 4);
 
-            if (teamRand == 0)
+            if (teamRand == 0) // S M 
             {
-                units[i] = new MeleeUnit(x, y, 100, 100, 1, 5, 1, Teams().ToLower(), "L", "Melee");
-                Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                units[i] = new MeleeUnit(x, y, 100, 100, 1, 5, 1, Teams(), "L", "Melee");
+                if(units[i].Team == "S")
+                {
+                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
+                if(units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("MeleeEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
+                }
             }
             if (teamRand == 1)
             {
                 units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 5, Teams(), "W", "Ranged");
-                Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                if (units[i].Team == "S")
+                {
+                    Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("RangedUnitEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
             }
             if (teamRand == 2)
             {
                 units[i] = new Rogue(x, y, 100, 100, 1, 12, 5, Teams(), "V", "Rogue");
-                Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                if (units[i].Team == "S")
+                {
+                    Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("RogueEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
             }
             if (teamRand == 3)
             {
                 units[i] = new Dragon(x, y, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
-                Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                if (units[i].Team == "S")
+                {
+                    Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("DragonEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
             }
         }
 
@@ -78,37 +106,49 @@ public partial class Map : MonoBehaviour
                 if (buildingType == 0)
                 {
                     buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 5, "Resource");
+                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 else
                 {
                     buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 1, "Factory");
+                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
             if (teamRand == 1)
             {
                 if (buildingType == 0)
                 {
-                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 5, "Resource");//🏙️🏠
+                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 5, "ResourceE");//🏙️🏠
+                    Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 1, "Factory");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 1, "FactoryE");
+                    Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
 
 
         }
-        for (int i = 0; i < buildings.Length; i++)
-        {
-            if (buildings[i].Type == "Resource")
-            {
-                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-            }
-        }
+        //for (int i = 0; i < buildings.Length; i++)
+        //{
+        //    if (buildings[i].Type == "Resource")
+        //    {
+        //        Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+        //    }
+        //    if(buildings[i].Type == "Factory")
+        //    {
+        //        Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+        //    }
+        //    if (buildings[i].Type == "ResourceE")
+        //    {
+        //        Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+        //    }
+        //    if (buildings[i].Type == "FactoryE")
+        //    {
+        //        Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+        //    }
+        //}
     }
 
     public void moveUnit()
@@ -227,21 +267,37 @@ public partial class Map : MonoBehaviour
         {
             if (units[i].isDead() != true)
             {
-                if (units[i].Name == "Melee")
+                if (units[i].Name == "Melee" && units[i].Team == "S")
                 {
                     Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
-                if (units[i].Name == "Ranged")
+                if (units[i].Name == "Melee" && units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("MeleeEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Name == "Ranged" && units[i].Team == "S")
                 {
                     Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
-                if (units[i].Name == "Rogue")
+                if (units[i].Name == "Ranged" && units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("RangedUnitEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Name == "Rogue" && units[i].Team == "S")
                 {
                     Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
-                if (units[i].Name == "Dragon")
+                if (units[i].Name == "Rogue" && units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("RogueEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Name == "Dragon" && units[i].Team == "S")
                 {
                     Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (units[i].Name == "Dragon" && units[i].Team == "M")
+                {
+                    Instantiate(Resources.Load("DragonEnemy"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 Instantiate(Resources.Load(units[i].DetermineHP(units[i].HP, units[i].MaxHP)), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
             }
@@ -254,11 +310,19 @@ public partial class Map : MonoBehaviour
             {
                 Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
+            if (buildings[i].Type == "FactoryE")
+            {
+                Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+            }
             if (buildings[i].Type == "Resource")
             {
                 Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
-            Instantiate(Resources.Load(buildings[i].DetermineBuildHP(buildings[i].Health, buildings[i].MaxHP)), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING) + 1, -1), Quaternion.identity);
+            if (buildings[i].Type == "ResourceE")
+            {
+                Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+            }
+            Instantiate(Resources.Load(buildings[i].DetermineBuildHP(buildings[i].Health, buildings[i].MaxHP)), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING) + 1, -1), Quaternion.identity);
         }
 
     }
