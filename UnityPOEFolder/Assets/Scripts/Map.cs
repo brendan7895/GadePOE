@@ -63,13 +63,7 @@ public partial class Map : MonoBehaviour
                 units[i] = new Dragon(x, y, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
                 Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
-           // Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
-
         }
-        //for (int i = 0; i < numUnits; i++) 
-        //{
-        //    Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
-        //}
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -115,8 +109,6 @@ public partial class Map : MonoBehaviour
                 Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
         }
-
-
     }
 
     public void moveUnit()
@@ -269,28 +261,33 @@ public partial class Map : MonoBehaviour
     }
 
     int arraySize;
-
-    public void placeNewUnit() //places new unit
+    int counter = 0;
+    public void placeNewUnit(int time) //places new unit
     {
-        arraySize = units.Length+1;
-        for (int i = 0; i < numBuildings-1; i++) //numbuild -1?
+        if(counter % time == 0)
         {
-            string buildingType = buildings[i].GetType().ToString();
-            string[] splitBuilding = buildingType.Split('.');
-            buildingType = splitBuilding[splitBuilding.Length - 1];
-
-            if (buildingType == "FactoryBuilding")
+            arraySize = units.Length + 1;
+            for (int i = 0; i < numBuildings - 1; i++) //numbuild -1?
             {
-                FactoryBuilding temp = (FactoryBuilding)buildings[i];
+                string buildingType = buildings[i].GetType().ToString();
+                string[] splitBuilding = buildingType.Split('.');
+                buildingType = splitBuilding[splitBuilding.Length - 1];
 
-                Array.Resize(ref units, arraySize);
-                units[arraySize-1] = temp.SpawnUnit(); //arraySize - 1
+                if (buildingType == "FactoryBuilding")
+                {
+                    FactoryBuilding temp = (FactoryBuilding)buildings[i];
 
-                units[units.Length-1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-                //mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
-                Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                    Array.Resize(ref units, arraySize);
+                    units[arraySize - 1] = temp.SpawnUnit(); //arraySize - 1
+
+                    units[units.Length - 1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+
+                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                }
             }
+            counter++;
         }
+        
     }
 
     public void PlaceNewResource() //places the resource on the map
