@@ -21,9 +21,9 @@ public class GameEngine
         gameMap.Redraw();
     }  
 
-    public void PlaceNewUnit(int tick)
+    public void PlaceNewUnit()
     {
-        gameMap.placeNewUnit(tick);
+        gameMap.placeNewUnit();
     }
 
     public void PlaceResource()

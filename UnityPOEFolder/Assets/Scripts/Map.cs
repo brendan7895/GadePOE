@@ -6,7 +6,7 @@ using UnityEngine;
 public partial class Map : MonoBehaviour
 {
     const float PADDING = 5.12f;
-    
+
     private int count = 0;
     float X_OFF, Y_OFF;
 
@@ -96,11 +96,11 @@ public partial class Map : MonoBehaviour
                 }
             }
 
-            
+
         }
         for (int i = 0; i < buildings.Length; i++)
         {
-            if(buildings[i].Type == "Resource")
+            if (buildings[i].Type == "Resource")
             {
                 Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
             }
@@ -225,7 +225,7 @@ public partial class Map : MonoBehaviour
         DestroyAll();
         for (int i = 0; i < units.Length; i++)
         {
-            if(units[i].isDead() != true)
+            if (units[i].isDead() != true)
             {
                 if (units[i].Name == "Melee")
                 {
@@ -243,9 +243,22 @@ public partial class Map : MonoBehaviour
                 {
                     Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
                 }
-                Instantiate(Resources.Load(units[i].DetermineHP(units[i].HP, units[i].MaxHP)), new Vector3(X_OFF + (units[i].XPos * PADDING)+1, Y_OFF + (-units[i].YPos * PADDING)+1, -1), Quaternion.identity);
+                Instantiate(Resources.Load(units[i].DetermineHP(units[i].HP, units[i].MaxHP)), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
             }
 
+        }
+
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            if (buildings[i].Type == "Factory")
+            {
+                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+            }
+            if (buildings[i].Type == "Resource")
+            {
+                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+            }
+            Instantiate(Resources.Load(buildings[i].DetermineBuildHP(buildings[i].Health, buildings[i].MaxHP)), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING) + 1, -1), Quaternion.identity);
         }
 
     }
@@ -261,33 +274,37 @@ public partial class Map : MonoBehaviour
     }
 
     int arraySize;
-    int counter = 0;
-    public void placeNewUnit(int time) //places new unit
+    int counter = 1;
+    public void placeNewUnit() //places new unit
     {
-        if(counter % time == 0)
+
+        arraySize = units.Length + 1;
+        for (int i = 0; i < numBuildings - 1; i++) //numbuild -1?
         {
-            arraySize = units.Length + 1;
-            for (int i = 0; i < numBuildings - 1; i++) //numbuild -1?
+            string buildingType = buildings[i].GetType().ToString();
+            string[] splitBuilding = buildingType.Split('.');
+            buildingType = splitBuilding[splitBuilding.Length - 1];
+
+            if (buildingType == "FactoryBuilding")
             {
-                string buildingType = buildings[i].GetType().ToString();
-                string[] splitBuilding = buildingType.Split('.');
-                buildingType = splitBuilding[splitBuilding.Length - 1];
-
-                if (buildingType == "FactoryBuilding")
+                FactoryBuilding temp = (FactoryBuilding)buildings[i];
+                if(temp.NumberOfUnits > 0)
                 {
-                    FactoryBuilding temp = (FactoryBuilding)buildings[i];
-
                     Array.Resize(ref units, arraySize);
                     units[arraySize - 1] = temp.SpawnUnit(); //arraySize - 1
 
                     units[units.Length - 1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
 
                     Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                    //Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[units.Length - 1].XPos + 1 * PADDING) + 1, Y_OFF + (-units[units.Length - 1].YPos * PADDING), -1), Quaternion.identity);
                 }
+
             }
-            counter++;
+
+
+
         }
-        
+
     }
 
     public void PlaceNewResource() //places the resource on the map

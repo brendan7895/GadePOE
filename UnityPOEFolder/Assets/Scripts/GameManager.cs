@@ -28,10 +28,10 @@ public class GameManager : MonoBehaviour {
     {
         if (c % 5 == 0)
         {
-            
+            ge.PlaceNewUnit();
             //ge.PlaceResource();
         }
-        ge.PlaceNewUnit(5);
+        
         c++;
 
         if (count % REFRESH_RATE == 0)

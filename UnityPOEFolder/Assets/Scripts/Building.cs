@@ -8,6 +8,7 @@ public abstract class Building
     protected string team;
     protected string symbol;
     protected string type;
+    protected int maxHP = 100;
 
     public int XPos
     {
@@ -61,6 +62,32 @@ public abstract class Building
         }
     }
 
+    public int MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+
+        set
+        {
+            maxHP = value;
+        }
+    }
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+
+        set
+        {
+            health = value;
+        }
+    }
+
     public Building(int xPos, int yPos, int health, string team, string symbol, string type)
     {
         this.XPos = xPos;
@@ -74,5 +101,14 @@ public abstract class Building
     public abstract bool isDead();
     public abstract string ToString();
     public abstract void SaveBuilding();
+
+    public string DetermineBuildHP(int hp, int maxHP)
+    {
+        string returnVal = "HP";
+        double result = ((double)hp / (double)maxHP) * 20;
+        int num = Mathf.CeilToInt((float)result);
+        returnVal += num;
+        return returnVal;
+    }
 }
 

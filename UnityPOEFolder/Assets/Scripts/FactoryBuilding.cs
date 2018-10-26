@@ -9,6 +9,19 @@ using UnityEngine;
         private int numberOfUnits;
         private int spawnPoint;
 
+    public int NumberOfUnits
+    {
+        get
+        {
+            return numberOfUnits;
+        }
+
+        set
+        {
+            numberOfUnits = value;
+        }
+    }
+
     public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
         {
             this.numberOfUnits = numberOfUnits;
@@ -31,33 +44,6 @@ using UnityEngine;
         {
             return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
         }
-
-    //public Unit SpawnUnit(int counter)
-    //{
-    //    Unit temp = null;
-
-    //    if(counter % unitTick == 0 && numberOfUnits > 0)
-    //    {
-    //        int choice = rand.Next(0, 2);
-
-    //        switch(choice)
-    //        {
-    //            case 0:
-    //                {
-    //                    temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-    //                }
-    //                break;
-    //            case 1:
-    //                {
-    //                    temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-    //                }
-    //                break;
-    //        }
-    //        numberOfUnits--;
-    //    }
-
-    //    return temp;
-    //}
 
     public Unit SpawnUnit()
     {
@@ -82,7 +68,6 @@ using UnityEngine;
             }
             numberOfUnits--;
         }
-
         return temp;
     }
 
