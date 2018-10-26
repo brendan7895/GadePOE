@@ -45,22 +45,22 @@ public partial class Map : MonoBehaviour
 
             if (teamRand == 0)
             {
-                units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                units[i] = new MeleeUnit(x, y, 100, 100, 1, 5, 1, Teams().ToLower(), "L", "Melee");
                 Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), -1), Quaternion.identity);
             }
             if (teamRand == 1)
             {
-                units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
+                units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 5, Teams(), "W", "Ranged");
                 Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
             if (teamRand == 2)
             {
-                units[i] = new Rogue(x, y, 100, 100, 1, 15, 5, Teams(), "V", "Rogue");
+                units[i] = new Rogue(x, y, 100, 100, 1, 12, 5, Teams(), "V", "Rogue");
                 Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
             if (teamRand == 3)
             {
-                units[i] = new Dragon(x, y, 200, 200, 1, 20, 10, Teams(), "D", "Dragon");
+                units[i] = new Dragon(x, y, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
                 Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (units[i].XPos * PADDING), Y_OFF + (-units[i].YPos * PADDING), 0), Quaternion.identity);
             }
            // Instantiate(Resources.Load("HP20"), new Vector3(X_OFF + (units[i].XPos * PADDING) + 1, Y_OFF + (-units[i].YPos * PADDING) + 1, -1), Quaternion.identity);
@@ -286,7 +286,7 @@ public partial class Map : MonoBehaviour
                 Array.Resize(ref units, arraySize);
                 units[arraySize-1] = temp.SpawnUnit(); //arraySize - 1
 
-                //units[i] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                units[units.Length-1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
                 //mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
                 Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
             }
@@ -364,11 +364,11 @@ public partial class Map : MonoBehaviour
 
             if (type == "Ranged")
             {
-                units[i] = new RangedUnit(x, y, hp, 100, 1, 10, 5, team, symbol, type);
+                units[i] = new RangedUnit(x, y, hp, 100, 1, 10, 1, team, symbol, type);
             }
             if (type == "Melee")
             {
-                units[i] = new MeleeUnit(x, y, hp, 100, 1, 10, 10, team, symbol, type);
+                units[i] = new MeleeUnit(x, y, hp, 100, 1, 10, 5, team, symbol, type);
             }
             if (type == "Rogue")
             {
@@ -376,7 +376,7 @@ public partial class Map : MonoBehaviour
             }
             if (type == "Dragon")
             {
-                units[i] = new Dragon(x, y, hp, 200, 1, 20, 10, team, symbol, type);
+                units[i] = new Dragon(x, y, hp, 200, 1, 20, 6, team, symbol, type);
             }
 
             mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
