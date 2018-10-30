@@ -55,7 +55,7 @@ public class FactoryBuilding : Building
 
             if (choice == 0) // S M 
             {
-                temp = new MeleeUnit(XPos+1, YPos, 100, 100, 1, 5, 1, Teams(), "L", "Melee");
+                temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 5, 1, Teams(), "L", "Melee");
                 if (temp.Team == "S")
                 {
                     Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), -1), Quaternion.identity);
@@ -67,7 +67,7 @@ public class FactoryBuilding : Building
             }
             if (choice == 1)
             {
-                temp = new RangedUnit(XPos + 1, YPos, 100, 100, 1, 10, 5, Teams(), "W", "Ranged");
+                temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams(), "W", "Ranged");
                 if (temp.Team == "S")
                 {
                     Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
@@ -79,7 +79,7 @@ public class FactoryBuilding : Building
             }
             if (choice == 2)
             {
-                temp = new Rogue(XPos + 1, YPos, 100, 100, 1, 12, 5, Teams(), "V", "Rogue");
+                temp = new Rogue(XPos, YPos, 100, 100, 1, 12, 5, Teams(), "V", "Rogue");
                 if (temp.Team == "S")
                 {
                     Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
@@ -91,7 +91,7 @@ public class FactoryBuilding : Building
             }
             if (choice == 3)
             {
-                temp = new Dragon(XPos + 1, YPos, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
+                temp = new Dragon(XPos, YPos, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
                 if (temp.Team == "S")
                 {
                     Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);

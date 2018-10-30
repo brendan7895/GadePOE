@@ -110,7 +110,7 @@ public partial class Map : MonoBehaviour
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "S", "F", 5, 1, "Factory");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "S", "F", 6, 1, "Factory");
                     Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
@@ -123,7 +123,7 @@ public partial class Map : MonoBehaviour
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "M", "F", 5, 1, "FactoryE");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "M", "F", 6, 1, "FactoryE");
                     Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
@@ -321,7 +321,7 @@ public partial class Map : MonoBehaviour
     public void placeNewUnit() //places new unit
     {
         arraySize = units.Length + 1;
-        for (int i = 0; i < numBuildings - 1; i++) //numbuild -1?
+        for (int i = 0; i < numBuildings; i++) //numbuild -1?
         {
             string buildingType = buildings[i].GetType().ToString();
             string[] splitBuilding = buildingType.Split('.');
@@ -332,14 +332,8 @@ public partial class Map : MonoBehaviour
                 FactoryBuilding temp = (FactoryBuilding)buildings[i];
                 if(temp.NumberOfUnits > 0 && temp.isDead() == false)
                 {
-
                     Array.Resize(ref units, arraySize);
                     units[arraySize - 1] = temp.SpawnUnit(); //arraySize - 1
-
-                    //units[units.Length - 1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-
-                    //Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
-                    //Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[units.Length - 1].XPos + 1 * PADDING) + 1, Y_OFF + (-units[units.Length - 1].YPos * PADDING), -1), Quaternion.identity);
                 }
             }
         }
@@ -348,7 +342,7 @@ public partial class Map : MonoBehaviour
 
     public void PlaceNewResource() //places the resource on the map
     {
-        for (int i = 0; i < numBuildings - 1; i++)
+        for (int i = 0; i < numBuildings; i++)
         {
             string buildingType = buildings[i].GetType().ToString();
             string[] splitBuilding = buildingType.Split('.');
