@@ -163,10 +163,13 @@ public partial class Map : MonoBehaviour
             }
 
             if (units[i].inRange(temp.XPos, temp.YPos) == true)
-            {
+            {               
                 if (units[i].isDead() == false)
                 {
-                    units[i].AttackUnit();
+
+                    //units[i].AttackUnit();
+                    //temp.HP = temp.HP - units[i].Attack;
+                    units[i].HP -= temp.Attack;
                 }
 
             }

@@ -10,10 +10,10 @@ public class RangedUnit : Unit
 
     }
 
-    public override void AttackUnit()
-    {
-        HP -= attack;
-    }
+    //public override void AttackUnit()
+    //{
+    //    HP -= attack;
+    //}
 
     public override bool inRange(int enemyX, int enemyY)
     {

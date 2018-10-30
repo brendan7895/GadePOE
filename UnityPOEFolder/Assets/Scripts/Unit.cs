@@ -132,7 +132,7 @@ public abstract class Unit
         this.Name = name;
     }
 
-    public abstract void AttackUnit();
+    //public abstract void AttackUnit();
     public abstract bool inRange(int enemyX, int enemyY);
     public abstract bool isDead();
     public abstract string ToString();
@@ -199,5 +199,18 @@ public abstract class Unit
         return returnVal;
     }
 
+    public Unit AttackUnit(Unit[] unit)
+    {
+        Unit temp = null;
+
+        for(int i = 0; i < unit.Length; i++)
+        {
+            if(unit[i].team != team)
+            {               
+                temp = unit[i];
+            }
+        }
+        return temp;
+    }
 }
 
