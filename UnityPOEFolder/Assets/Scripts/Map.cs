@@ -12,7 +12,7 @@ public partial class Map : MonoBehaviour
 
     System.Random rand = new System.Random();
 
-    int numUnits = 10; //number of units to be placed
+    int numUnits = 1; //number of units to be placed
     int numBuildings = 5; //number of resource buildings
 
     string[,] mapArr = new string[20, 20]; //map array
@@ -105,12 +105,12 @@ public partial class Map : MonoBehaviour
             {
                 if (buildingType == 0)
                 {
-                    buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 5, "Resource");
+                    buildings[i] = new ResourceBuilding(x, y, 100, "S", "R", 5, "Resource");
                     Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 1, "Factory");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "S", "F", 5, 1, "Factory");
                     Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
@@ -118,12 +118,12 @@ public partial class Map : MonoBehaviour
             {
                 if (buildingType == 0)
                 {
-                    buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 5, "ResourceE");//🏙️🏠
+                    buildings[i] = new ResourceBuilding(x, y, 100, "M", "R", 5, "ResourceE");//🏙️🏠
                     Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
                 else
                 {
-                    buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 1, "FactoryE");
+                    buildings[i] = new FactoryBuilding(x, y, 100, "M", "F", 5, 1, "FactoryE");
                     Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
                 }
             }
@@ -166,9 +166,6 @@ public partial class Map : MonoBehaviour
             {               
                 if (units[i].isDead() == false)
                 {
-
-                    //units[i].AttackUnit();
-                    //temp.HP = temp.HP - units[i].Attack;
                     units[i].HP -= temp.Attack;
                 }
 
@@ -214,7 +211,7 @@ public partial class Map : MonoBehaviour
         {
             for(int j = 0; j < units.Length; j++)
             {
-                if(units[j].inRange(buildings[i].XPos, buildings[i].YPos))
+                if(units[j].inRange(buildings[i].XPos, buildings[i].YPos) && buildings[i].isDead() == false)
                 {
                     buildings[i].Health = buildings[i].Health - units[i].Attack;
                 }
@@ -323,7 +320,6 @@ public partial class Map : MonoBehaviour
     int counter = 1;
     public void placeNewUnit() //places new unit
     {
-
         arraySize = units.Length + 1;
         for (int i = 0; i < numBuildings - 1; i++) //numbuild -1?
         {
@@ -334,21 +330,18 @@ public partial class Map : MonoBehaviour
             if (buildingType == "FactoryBuilding")
             {
                 FactoryBuilding temp = (FactoryBuilding)buildings[i];
-                if(temp.NumberOfUnits > 0)
+                if(temp.NumberOfUnits > 0 && temp.isDead() == false)
                 {
+
                     Array.Resize(ref units, arraySize);
                     units[arraySize - 1] = temp.SpawnUnit(); //arraySize - 1
 
-                    units[units.Length - 1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
+                    //units[units.Length - 1] = new MeleeUnit(buildings[i].XPos + 1, buildings[i].YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
 
-                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
+                    //Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (buildings[i].XPos + 1 * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), -1), Quaternion.identity);
                     //Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (units[units.Length - 1].XPos + 1 * PADDING) + 1, Y_OFF + (-units[units.Length - 1].YPos * PADDING), -1), Quaternion.identity);
                 }
-
             }
-
-
-
         }
 
     }

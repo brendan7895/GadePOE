@@ -3,6 +3,7 @@
 public class GameEngine
 {
     Map gameMap = new Map();
+    private int count = 0;
 
     public void start()
     {
@@ -11,6 +12,13 @@ public class GameEngine
 
     public void playGame()
     {
+        if(count % 5 == 0)
+        {
+            //gameMap.PlaceNewResource();
+            gameMap.placeNewUnit();
+        }
+        count++;
+
         gameMap.AttackBuilding();
         gameMap.moveUnit();       
         gameMap.Redraw();
@@ -21,15 +29,10 @@ public class GameEngine
         gameMap.Redraw();
     }  
 
-    public void PlaceNewUnit()
-    {
-        gameMap.placeNewUnit();
-    }
-
-    public void PlaceResource()
-    {
-        gameMap.PlaceNewResource();
-    }
+    //public void PlaceNewUnit()
+    //{
+    //    gameMap.placeNewUnit();
+    //}
 
     public void SaveAll()
     {

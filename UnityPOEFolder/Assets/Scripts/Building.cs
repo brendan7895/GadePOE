@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class Building
+public abstract class Building : MonoBehaviour
 {
     protected int xPos;
     protected int yPos;

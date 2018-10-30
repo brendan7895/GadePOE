@@ -5,6 +5,8 @@ using UnityEngine;
 public class FactoryBuilding : Building
 {
     System.Random rand = new System.Random();
+    float X_OFF, Y_OFF;
+    const float PADDING = 5.12f;
 
     private int numberOfUnits;
     private int spawnPoint;
@@ -49,20 +51,55 @@ public class FactoryBuilding : Building
 
         if (numberOfUnits >= 0)
         {
-            int choice = rand.Next(0, 2);
+            int choice = rand.Next(0, 4);
 
-            switch (choice)
+            if (choice == 0) // S M 
             {
-                case 0:
-                    {
-                        temp = new MeleeUnit(XPos, YPos, 100, 100, 1, 10, 5, Teams().ToLower(), "L", "Melee");
-                    }
-                    break;
-                case 1:
-                    {
-                        temp = new RangedUnit(XPos, YPos, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
-                    }
-                    break;
+                temp = new MeleeUnit(XPos+1, YPos, 100, 100, 1, 5, 1, Teams(), "L", "Melee");
+                if (temp.Team == "S")
+                {
+                    Instantiate(Resources.Load("Melee"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), -1), Quaternion.identity);
+                }
+                if (temp.Team == "M")
+                {
+                    Instantiate(Resources.Load("MeleeEnemy"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), -1), Quaternion.identity);
+                }
+            }
+            if (choice == 1)
+            {
+                temp = new RangedUnit(XPos + 1, YPos, 100, 100, 1, 10, 5, Teams(), "W", "Ranged");
+                if (temp.Team == "S")
+                {
+                    Instantiate(Resources.Load("RangedUnit"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (temp.Team == "M")
+                {
+                    Instantiate(Resources.Load("RangedUnitEnemy"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
+            }
+            if (choice == 2)
+            {
+                temp = new Rogue(XPos + 1, YPos, 100, 100, 1, 12, 5, Teams(), "V", "Rogue");
+                if (temp.Team == "S")
+                {
+                    Instantiate(Resources.Load("Rogue"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (temp.Team == "M")
+                {
+                    Instantiate(Resources.Load("RogueEnemy"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
+            }
+            if (choice == 3)
+            {
+                temp = new Dragon(XPos + 1, YPos, 200, 200, 1, 15, 6, Teams(), "D", "Dragon");
+                if (temp.Team == "S")
+                {
+                    Instantiate(Resources.Load("Dragon"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (temp.Team == "M")
+                {
+                    Instantiate(Resources.Load("DragonEnemy"), new Vector3(X_OFF + (temp.XPos * PADDING), Y_OFF + (-temp.YPos * PADDING), 0), Quaternion.identity);
+                }
             }
             numberOfUnits--;
         }
