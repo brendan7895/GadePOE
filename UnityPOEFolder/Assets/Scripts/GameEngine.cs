@@ -12,7 +12,7 @@ public class GameEngine
     public void playGame()
     {
         gameMap.moveUnit();
-        gameMap.close();
+        //gameMap.close();
         gameMap.Redraw();
     }
 

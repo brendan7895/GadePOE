@@ -2,12 +2,12 @@
 using UnityEngine;
 
 
-    public class FactoryBuilding : Building
-    {
-        System.Random rand = new System.Random();
+public class FactoryBuilding : Building
+{
+    System.Random rand = new System.Random();
 
-        private int numberOfUnits;
-        private int spawnPoint;
+    private int numberOfUnits;
+    private int spawnPoint;
 
     public int NumberOfUnits
     {
@@ -23,27 +23,27 @@ using UnityEngine;
     }
 
     public FactoryBuilding(int xPos, int yPos, int health, string team, string symbol, int numberOfUnits, int spawnPoint, string type) : base(xPos, yPos, health, team, symbol, type)
-        {
-            this.numberOfUnits = numberOfUnits;
-            this.spawnPoint = spawnPoint;
-        }
+    {
+        this.numberOfUnits = numberOfUnits;
+        this.spawnPoint = spawnPoint;
+    }
 
-        public override bool isDead()
+    public override bool isDead()
+    {
+        if (health <= 0)
         {
-            if (health <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
 
-        public override string ToString()
-        {
-            return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
-        }
+    public override string ToString()
+    {
+        return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
+    }
 
     public Unit SpawnUnit()
     {
@@ -72,34 +72,34 @@ using UnityEngine;
     }
 
     public string Teams()
+    {
+        int i = rand.Next(0, 2);
+        string sym = "";
+
+        if (i == 0)
         {
-            int i = rand.Next(0, 2);
-            string sym = "";
-
-            if (i == 0)
-            {
-                sym = "S";
-            }
-            if (i == 1)
-            {
-                sym = "M";
-            }
-            return sym;
+            sym = "S";
         }
-
-        public override void SaveBuilding()
+        if (i == 1)
         {
-            if (Directory.Exists("saves") != true)
-            {
-                Directory.CreateDirectory("saves");
-
-            }
-
-            FileStream build = new FileStream("saves/BuildingSave.file", FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(build);
-            writer.WriteLine(ToString());
-            writer.Close();
-            build.Close();
+            sym = "M";
         }
+        return sym;
     }
+
+    public override void SaveBuilding()
+    {
+        if (Directory.Exists("saves") != true)
+        {
+            Directory.CreateDirectory("saves");
+
+        }
+
+        FileStream build = new FileStream("saves/BuildingSave.file", FileMode.Append, FileAccess.Write);
+        StreamWriter writer = new StreamWriter(build);
+        writer.WriteLine(ToString());
+        writer.Close();
+        build.Close();
+    }
+}
 

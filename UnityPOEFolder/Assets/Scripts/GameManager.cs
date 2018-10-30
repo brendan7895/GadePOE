@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     GameEngine ge;
     //const float PADDING = 5.12f;
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour {
             //ge.PlaceNewUnit();
             //ge.PlaceResource();
         }
-        
+
         c++;
 
         if (count % REFRESH_RATE == 0)
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour {
             //ge.PlaceNewUnit();
         }
 
-        
-        count++;        
+
+        count++;
     }
 }

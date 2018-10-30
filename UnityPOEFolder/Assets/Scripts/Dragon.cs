@@ -20,8 +20,9 @@ public class Dragon : Unit
         bool value = false;
         int x = Math.Abs(xPos - enemyX);
         int y = Math.Abs(yPos - enemyY);
+        int abs = x + y;
 
-        if ((x + y) <= atkRange)
+        if (abs <= atkRange)
         {
             value = true;
         }

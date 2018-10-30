@@ -130,31 +130,11 @@ public partial class Map : MonoBehaviour
 
 
         }
-        //for (int i = 0; i < buildings.Length; i++)
-        //{
-        //    if (buildings[i].Type == "Resource")
-        //    {
-        //        Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-        //    }
-        //    if(buildings[i].Type == "Factory")
-        //    {
-        //        Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-        //    }
-        //    if (buildings[i].Type == "ResourceE")
-        //    {
-        //        Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-        //    }
-        //    if (buildings[i].Type == "FactoryE")
-        //    {
-        //        Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-        //    }
-        //}
+       
     }
 
     public void moveUnit()
     {
-        //int numArr = units.Length;
-
         for (int i = 0; i < units.Length; i++)
         {
             Unit temp = units[i].closestUnit(units);
@@ -220,20 +200,18 @@ public partial class Map : MonoBehaviour
                             }
                             break;
                     }
-
                 }
             }
         }
-
     }
-    public void close()
-    {
-        for (int k = 0; k < numUnits; k++)
-        {
-            units[k].closestUnit(units);
-        }
 
-    }
+    //public void close()
+    //{
+    //    for (int k = 0; k < numUnits; k++)
+    //    {
+    //        units[k].closestUnit(units);
+    //    }
+    //}
 
     public int numUnit()
     {
