@@ -10,7 +10,7 @@ public class MeleeUnit : Unit
 
     }
 
-    public override void Attack()
+    public override void AttackUnit()
     {
         HP -= attack;
     }

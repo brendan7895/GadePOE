@@ -166,7 +166,7 @@ public partial class Map : MonoBehaviour
             {
                 if (units[i].isDead() == false)
                 {
-                    units[i].Attack();
+                    units[i].AttackUnit();
                 }
 
             }
@@ -205,21 +205,18 @@ public partial class Map : MonoBehaviour
         }
     }
 
-    //public void close()
-    //{
-    //    for (int k = 0; k < numUnits; k++)
-    //    {
-    //        units[k].closestUnit(units);
-    //    }
-    //}
-
-    public int numUnit()
+    public void AttackBuilding()
     {
-        return units.Length;
-    }
-    public int numBuild()
-    {
-        return numBuildings;
+        for(int i = 0; i < buildings.Length; i++)
+        {
+            for(int j = 0; j < units.Length; j++)
+            {
+                if(units[j].inRange(buildings[i].XPos, buildings[i].YPos))
+                {
+                    buildings[i].Health = buildings[i].Health - units[i].Attack;
+                }
+            }
+        }
     }
 
     public string Teams()
@@ -284,23 +281,27 @@ public partial class Map : MonoBehaviour
 
         for (int i = 0; i < buildings.Length; i++)
         {
-            if (buildings[i].Type == "Factory")
+            if(buildings[i].isDead() != true)
             {
-                Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+                if (buildings[i].Type == "Factory")
+                {
+                    Instantiate(Resources.Load("Factory"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (buildings[i].Type == "FactoryE")
+                {
+                    Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (buildings[i].Type == "Resource")
+                {
+                    Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                if (buildings[i].Type == "ResourceE")
+                {
+                    Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
+                }
+                Instantiate(Resources.Load(buildings[i].DetermineBuildHP(buildings[i].Health, buildings[i].MaxHP)), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING) + 1, -1), Quaternion.identity);
             }
-            if (buildings[i].Type == "FactoryE")
-            {
-                Instantiate(Resources.Load("FactoryEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-            }
-            if (buildings[i].Type == "Resource")
-            {
-                Instantiate(Resources.Load("ResourceBuilding"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-            }
-            if (buildings[i].Type == "ResourceE")
-            {
-                Instantiate(Resources.Load("ResourceBuildingEnemy"), new Vector3(X_OFF + (buildings[i].XPos * PADDING) + 1, Y_OFF + (-buildings[i].YPos * PADDING), 0), Quaternion.identity);
-            }
-            Instantiate(Resources.Load(buildings[i].DetermineBuildHP(buildings[i].Health, buildings[i].MaxHP)), new Vector3(X_OFF + (buildings[i].XPos * PADDING), Y_OFF + (-buildings[i].YPos * PADDING) + 1, -1), Quaternion.identity);
+            
         }
 
     }

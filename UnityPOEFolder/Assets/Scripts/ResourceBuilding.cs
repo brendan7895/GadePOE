@@ -27,14 +27,12 @@ public class ResourceBuilding : Building
 
     public override bool isDead()
     {
+        bool value = false;
         if (health <= 0)
         {
-            return true;
+            value = true;
         }
-        else
-        {
-            return false;
-        }
+        return value;
     }
 
     public override string ToString()

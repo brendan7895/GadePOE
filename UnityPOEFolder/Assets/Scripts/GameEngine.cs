@@ -11,8 +11,8 @@ public class GameEngine
 
     public void playGame()
     {
-        gameMap.moveUnit();
-        //gameMap.close();
+        gameMap.AttackBuilding();
+        gameMap.moveUnit();       
         gameMap.Redraw();
     }
 

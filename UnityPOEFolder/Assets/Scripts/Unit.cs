@@ -105,6 +105,19 @@ public abstract class Unit
         }
     }
 
+    public int Attack
+    {
+        get
+        {
+            return attack;
+        }
+
+        set
+        {
+            attack = value;
+        }
+    }
+
     public Unit(int xPos, int yPos, int maxHP, int HP, int speed, int attack, int atkRange, string team, string symbol, string name)
     {
         this.xPos = xPos;
@@ -119,7 +132,7 @@ public abstract class Unit
         this.Name = name;
     }
 
-    public abstract void Attack();
+    public abstract void AttackUnit();
     public abstract bool inRange(int enemyX, int enemyY);
     public abstract bool isDead();
     public abstract string ToString();

@@ -9,7 +9,7 @@ public class Rogue : Unit
 
     }
 
-    public override void Attack()
+    public override void AttackUnit()
     {
         HP -= attack;
     }
