@@ -29,8 +29,9 @@ public class GameManager : MonoBehaviour
             ge.playGame();
             //ge.PlaceNewUnit();
         }
-
-
         count++;
+
+
+        
     }
 }
