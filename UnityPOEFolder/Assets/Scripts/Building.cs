@@ -88,6 +88,19 @@ public abstract class Building : MonoBehaviour
         }
     }
 
+    public string Team
+    {
+        get
+        {
+            return team;
+        }
+
+        set
+        {
+            team = value;
+        }
+    }
+
     public Building(int xPos, int yPos, int health, string team, string symbol, string type)
     {
         this.XPos = xPos;

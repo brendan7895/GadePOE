@@ -211,7 +211,7 @@ public partial class Map : MonoBehaviour
         {
             for(int j = 0; j < units.Length; j++)
             {
-                if(units[j].inRange(buildings[i].XPos, buildings[i].YPos) && buildings[i].isDead() == false)
+                if(units[j].inRange(buildings[i].XPos, buildings[i].YPos) && buildings[i].isDead() == false && units[j].Team != buildings[i].Team)
                 {
                     buildings[i].Health = buildings[i].Health - units[i].Attack;
                 }
