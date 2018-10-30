@@ -337,7 +337,6 @@ public partial class Map : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void PlaceNewResource() //places the resource on the map
@@ -358,7 +357,7 @@ public partial class Map : MonoBehaviour
                     int x = rand.Next(0, 20);
                     int y = rand.Next(0, 20);
 
-                    Instantiate(Resources.Load("Coin"), new Vector3(X_OFF + (x + 1 * PADDING) + 1, Y_OFF + (-y * PADDING), -1), Quaternion.identity);
+                    Instantiate(Resources.Load("Coin"), new Vector3(X_OFF + (x + 1 * PADDING) + 1, Y_OFF + (-y * PADDING), 0), Quaternion.identity);
                 }
             }
         }

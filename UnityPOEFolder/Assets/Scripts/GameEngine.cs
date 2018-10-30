@@ -19,7 +19,7 @@ public class GameEngine
         }
         count++;
 
-        //gameMap.AttackBuilding();
+        gameMap.AttackBuilding();
         gameMap.moveUnit();       
         gameMap.Redraw();
     }
