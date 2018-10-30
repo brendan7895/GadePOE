@@ -12,7 +12,7 @@ public partial class Map : MonoBehaviour
 
     System.Random rand = new System.Random();
 
-    int numUnits = 1; //number of units to be placed
+    int numUnits = 10; //number of units to be placed
     int numBuildings = 5; //number of resource buildings
 
     string[,] mapArr = new string[20, 20]; //map array
